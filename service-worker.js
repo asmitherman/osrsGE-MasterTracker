@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/osrsGE-MasterTracker/precache-manifest.5cd56ba90b9847c7582ab7926ed32194.js"
+  "/osrsGE-MasterTracker/precache-manifest.e84ea64b93a1f89ade8859f2df625272.js"
 );
 
 workbox.clientsClaim();
