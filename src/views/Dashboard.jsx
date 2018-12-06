@@ -48,13 +48,78 @@ class Dashboard extends React.Component {
     this.state = {
       data: [],
       dailyChartData: {},
-      bigChartData: "data1",
+      bigChartDataName: "data1",
+      bigChartData: {},
+      priceChartData: {},
+      trendChartData: {},
     }
 
   }
-  setBgChartData = name => {
+  setBgChartDataName = name => {
+    let values = [];
+    let days = [];
+    let newDays = [];
+    let newValues = [];
+    let graph = this.state.priceChartData;
+    Object.keys(graph).forEach(function(key,index) {
+      let day = new Date(key*1000);
+      let standardDate = Moment(day/1000)
+      days.push(standardDate.format('l'))
+      values.push(graph[key])
+    });
+    if(name === 'data1') {
+      for( let i = 30; i > 0 ; i--)
+      {
+        newDays.push(days[days.length - i])
+      }
+      for( let i = 30; i > 0 ; i--)
+      {
+        newValues.push(values[values.length - i])
+      }
+    } else if (name === 'data2') {
+      for( let i = 90; i > 0 ; i--)
+      {
+        newDays.push(days[days.length - i])
+      }
+      for( let i = 90; i > 0 ; i--)
+      {
+        newValues.push(values[values.length - i])
+      }
+    } else if ( name === 'data3') {
+      for( let i = 180; i > 0 ; i--)
+      {
+        newDays.push(days[days.length - i])
+      }
+      for( let i = 180; i > 0 ; i--)
+      {
+        newValues.push(values[values.length - i])
+      }
+    }
+
       this.setState({
-        bigChartData: name
+        bigChartData:{
+          labels: newDays,
+          datasets:[
+            {
+              label:'Long Term Prices',
+              data: newValues,
+              fill: true,
+              borderColor: "#1f8ef1",
+              borderWidth: 2,
+              borderDash: [],
+              borderDashOffset: 0.0,
+              pointBackgroundColor: "#1f8ef1",
+              pointBorderColor: "rgba(255,255,255,0)",
+              pointHoverBackgroundColor: "#1f8ef1",
+              pointBorderWidth: 20,
+              pointHoverRadius: 4,
+              pointHoverBorderWidth: 15,
+              pointRadius: 3,
+
+            }
+          ]
+
+          }
       });
     };
 
@@ -84,16 +149,12 @@ class Dashboard extends React.Component {
       for (item in response) {
         graph.push(response[item]);
       }
-      console.log(graph[0])
+      this.setState({ priceChartData: graph[0]});
       Object.keys(graph[0]).forEach(function(key,index) {
         let day = new Date(key*1000);
         let standardDate = Moment(day/1000)
         days.push(standardDate.format('l'))
         dailyValues.push(graph[0][key])
-
-
-          // key: the name of the object key
-          // index: the ordinal position of the key within the object
       });
       let pastWeek = [];
       for( let i = 7; i > 0 ; i--)
@@ -142,7 +203,16 @@ class Dashboard extends React.Component {
   // <li className="item" key={item.id}>{item.name}: {item.current.price}</li>;
   render() {
 
+let itemBigChart = this.state.data.map(function(item) {
+  return (
+  <Col className="text-left" sm="6">
+    <h5 className="card-category"> {item.name + " Long Term Price"}</h5>
+    <CardTitle tag="h2">Daily Average</CardTitle>
+  </Col>
 
+  )
+
+})
     let itemList = this.state.data.map(function(item) {
       return (
         <tr key={item.id}>
@@ -211,11 +281,8 @@ class Dashboard extends React.Component {
               <Card className="card-chart">
                 <CardHeader>
                   <Row>
-                    <Col className="text-left" sm="6">
-                      <h5 className="card-category">Price</h5>
-                      <CardTitle tag="h2">Daily Average</CardTitle>
-                    </Col>
-                    <Col sm="6">
+                  {itemBigChart}
+                      <Col sm="6">
                       <ButtonGroup
                         className="btn-group-toggle float-right"
                         data-toggle="buttons"
@@ -228,7 +295,7 @@ class Dashboard extends React.Component {
                           color="info"
                           id="0"
                           size="sm"
-                          onClick={() => this.setBgChartData("data1")}
+                          onClick={() => this.setBgChartDataName("data1")}
                         >
                           <input
                             defaultChecked
@@ -251,7 +318,7 @@ class Dashboard extends React.Component {
                           className={classNames("btn-simple", {
                             active: this.state.bigChartData === "data2"
                           })}
-                          onClick={() => this.setBgChartData("data2")}
+                          onClick={() => this.setBgChartDataName("data2")}
                         >
                           <input
                             className="d-none"
@@ -273,7 +340,7 @@ class Dashboard extends React.Component {
                           className={classNames("btn-simple", {
                             active: this.state.bigChartData === "data3"
                           })}
-                          onClick={() => this.setBgChartData("data3")}
+                          onClick={() => this.setBgChartDataName("data3")}
                         >
                           <input
                             className="d-none"
@@ -294,7 +361,7 @@ class Dashboard extends React.Component {
                 <CardBody>
                   <div className="chart-area">
                     <Line
-                      data={chartExample1[this.state.bigChartData]}
+                      data={this.state.bigChartData}
                       options={chartExample1.options}
                     />
                   </div>
