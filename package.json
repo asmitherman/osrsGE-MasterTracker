@@ -15,11 +15,13 @@
     "prop-types": "^15.6.2",
     "react": "16.5.2",
     "react-chartjs-2": "^2.7.4",
+    "react-router-dom": "4.3.1",
     "react-google-maps": "9.4.5",
     "react-notification-alert": "0.0.8",
     "react-router-dom": "4.3.1",
     "react-scripts": "2.0.4",
-    "reactstrap": "6.5.0"
+    "reactstrap": "6.5.0",
+    "moment": "^2.22.2",
   },
   "scripts": {
     "start": "react-scripts start",
@@ -39,7 +41,5 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "moment": "^2.22.2",
-    "react-dom": "^16.6.3"
   }
 }
