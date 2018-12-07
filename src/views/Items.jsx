@@ -394,15 +394,30 @@ class ItemsView extends React.Component {
     })
 
     let itemList = this.state.data.map(function(item) {
-      return (
-        <tr key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
-        <td>{item.name}</td>
-        <td>{item.current.price}</td>
-        <td>{item.current.trend}</td>
-        <td className="text-center">{item['day30'].change}</td>
-        </tr>
-      )
-    }, this);
+      if(item['day30'].change.charAt(0) == '+' ) {
+        return (
+          <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
+          <td>{item.name}</td>
+          <td>{item.current.price}</td>
+          <td >{item.current.trend}</td>
+          <td className="text-center text-success" >{item['day30'].change}</td>
+          </tr>
+        )
+      } else {
+        return (
+          <tr className="text-warning" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
+          <td>{item.name}</td>
+          <td>{item.current.price}</td>
+          <td >{item.current.trend}</td>
+          <td className="text-center text-warning" >{item['day30'].change}</td>
+          </tr>
+        )
+
+      }
+
+
+
+      }, this);
 
     let itemChart = this.state.data.map(function(item) {
 
