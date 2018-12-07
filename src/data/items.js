@@ -1,4 +1,4 @@
-export const Items = [
+const Items = [
   {
     "id": 2,
     "name": "Cannonball"
@@ -12044,3 +12044,5 @@ export const Items = [
     "name": "Old school bond"
   }
 ]
+
+export default Items;
