@@ -2,13 +2,16 @@
   "name": "black-dashboard-react",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://creativetimofficial.github.io/black-dashboard-react/#/dashboard",
+  "homepage": ".",
   "dependencies": {
     "@types/react": "16.4.16",
     "bootstrap": "4.1.3",
     "chart.js": "^2.7.2",
     "classnames": "2.2.6",
+    "cors": "^2.8.5",
+    "express-favicon": "^2.0.1",
     "history": "4.7.2",
+    "moment": "^2.22.2",
     "node-sass": "4.9.3",
     "osrs-api": "^0.1.2",
     "perfect-scrollbar": "1.4.0",
@@ -20,8 +23,7 @@
     "react-notification-alert": "0.0.8",
     "react-router-dom": "4.3.1",
     "react-scripts": "2.0.4",
-    "reactstrap": "6.5.0",
-    "moment": "^2.22.2"
+    "reactstrap": "6.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -40,6 +42,5 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
