@@ -392,6 +392,9 @@ class ItemsView extends React.Component {
 
   }
 
+  routeToItemPage(itemid) {
+    this.props.history.push('/admin/item/' + itemid)
+  }
   // <li className="item" key={item.id}>{item.name}: {item.current.price}</li>;
   render() {
 
@@ -405,6 +408,7 @@ class ItemsView extends React.Component {
       )
 
     })
+            // <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
           // <td >{item.current.trend}</td>
           // <td className="text-center text-success" >{item['day30'].change}</td>
     let itemLen = 10;
@@ -412,7 +416,7 @@ class ItemsView extends React.Component {
         if(itemLen) {
           itemLen--;
           return (
-            <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
+            <tr className="text-success" key={item.id} onClick={() => this.routeToItemPage(item.id)}>
             <td>{item.name}</td>
             <td>{item.buy_average}</td>
             </tr>

@@ -15,4 +15,7 @@ response = requests.get("https://storage.googleapis.com/osbuddy-exchange/summary
 
         # if response.content:
         #     print(response.content + ',')
+print("const AllItems = [")
 print(response.content)
+print("]")
+print( "export default AllItems;")

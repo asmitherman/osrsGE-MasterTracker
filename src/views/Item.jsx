@@ -62,20 +62,55 @@ class ItemDetail extends React.Component {
       }
     });
 
+//           <img className="float-left img-fluid" src="https://www.ge-tracker.com/assets/images/icons/1511.gif"/>
 
     return (
       <div className="content">
       <Row>
       <Col lg="5" md="12">
       <Card>
-      <CardTitle>
-      {thisItem.name}
-      &nbsp;
-      &nbsp;
-      &nbsp;
+        <CardHeader>
 
-      {thisItem.overall_average}
-      </CardTitle>
+          <CardTitle tag="h4">
+          <h2> {thisItem.name} </h2>
+          </CardTitle>
+        </CardHeader>
+        <CardBody>
+          <Table className="tablesorter" responsive>
+            <tbody>
+              <tr>
+                <td>Current Price</td>
+                <td>{thisItem.overall_average}</td>
+                <td>Buying Quantity</td>
+                <td>{thisItem.buy_quantity}</td>
+              </tr>
+              <tr>
+                <td>Approx. Offer Price</td>
+                <td>{thisItem.sell_average}</td>
+                <td>Selling Quantity</td>
+                <td>{thisItem.sell_quantity}</td>
+              </tr>
+              <tr>
+                <td>Approx. Sell Price</td>
+                <td>{thisItem.buy_average}</td>
+                <td>Buy/Sell Ratio</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>Approx. Profit</td>
+                <td>N/A</td>
+                <td>GE Limit</td>
+                <td>N/A</td>
+              </tr>
+              <tr>
+                <td>High Alc Value</td>
+                <td>N/A</td>
+                <td>High Alc Profit</td>
+                <td>N/A</td>
+              </tr>
+            </tbody>
+          </Table>
+        </CardBody>
       </Card>
       </Col>
       </Row>
