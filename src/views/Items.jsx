@@ -49,17 +49,29 @@ var search = new JsSearch.Search('name');
 search.addIndex('name');
 search.addIndex('id');
 let itemArray = [];
-for(let i = 0; i < AllItems.length; i++)
-{
-  // console.log(AllItems[i].item)
-  // search.addDocuments(AllItems[i].item);
-  itemArray.push(AllItems[i].item);
-}
+// for(let i = 0; i < AllItems[0].length; i++)
+// {
+//   // console.log(AllItems[i])
+//   // search.addDocuments(AllItems[i].item);
+//   itemArray.push(AllItems[0][i]);
+// }
+
+    Object.keys(AllItems[0]).forEach(function(key,index) {
+  itemArray.push(AllItems[0][key]);
+  // console.log(key + ' ' + AllItems[0][key].name)
+  // console.log(key + ' ' + index)
+  // let day = new Date(key*1000);
+  // let standardDate = Moment(day/1000)
+  // days.push(standardDate.format('l'))
+  // values.push(graph[key])
+});
 
 search.addDocuments(itemArray);
 
 // console.log("searching for yew" );    // [theGreatGatsby, theDaVinciCode]
 // console.log(search.search(1515))
+// console.log(search.search("yew"))
+// console.log(itemArray)
 // search.search('scott');  // [theGreatGatsby]
 // search.search('dan');    // [angelsAndDemons, theDaVinciCode]
 // search.search('mystery') // [angelsAndDemons, theDaVinciCode]
@@ -79,6 +91,7 @@ class ItemsView extends React.Component {
       priceChartData: {},
       trendChartData: {},
     }
+
 
   }
   setBgChartDataName(name,itemName) {
@@ -392,28 +405,36 @@ class ItemsView extends React.Component {
       )
 
     })
+          // <td >{item.current.trend}</td>
+          // <td className="text-center text-success" >{item['day30'].change}</td>
 
     let itemList = this.state.data.map(function(item) {
-      if(item['day30'].change.charAt(0) == '+' ) {
         return (
-          <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
+          <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
           <td>{item.name}</td>
-          <td>{item.current.price}</td>
-          <td >{item.current.trend}</td>
-          <td className="text-center text-success" >{item['day30'].change}</td>
+          <td>{item.buy_average}</td>
           </tr>
         )
-      } else {
-        return (
-          <tr className="text-warning" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
-          <td>{item.name}</td>
-          <td>{item.current.price}</td>
-          <td >{item.current.trend}</td>
-          <td className="text-center text-warning" >{item['day30'].change}</td>
-          </tr>
-        )
-
-      }
+      // if(item['day30'].change.charAt(0) == '+' ) {
+      //   return (
+      //     <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
+      //     <td>{item.name}</td>
+      //     <td>{item.current.price}</td>
+      //     <td >{item.current.trend}</td>
+      //     <td className="text-center text-success" >{item['day30'].change}</td>
+      //     </tr>
+      //   )
+      // } else {
+      //   return (
+      //     <tr className="text-warning" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
+      //     <td>{item.name}</td>
+      //     <td>{item.current.price}</td>
+      //     <td >{item.current.trend}</td>
+      //     <td className="text-center text-warning" >{item['day30'].change}</td>
+      //     </tr>
+      //   )
+      //
+      // }
 
 
 
@@ -427,7 +448,7 @@ class ItemsView extends React.Component {
           <CardHeader key = {item.id}>
           <h5 className="card-category">{item.name + " Weekly Prices"}</h5>
           <CardTitle tag="h3">
-          <i className="tim-icons icon-money-coins text-success" /> {item.current.price}
+          <i className="tim-icons icon-money-coins text-success" /> {item.buy_average}
           </CardTitle>
           </CardHeader>
       <CardBody>
@@ -442,6 +463,8 @@ class ItemsView extends React.Component {
     });
 
 
+      // <th>Current Trend</th>
+      // <th className="text-center">30 Day Change</th>
 
     return (
       <div className="content">
@@ -469,9 +492,7 @@ class ItemsView extends React.Component {
       <thead className="text-primary">
       <tr>
       <th>Name</th>
-      <th>Price</th>
-      <th>Current Trend</th>
-      <th className="text-center">30 Day Change</th>
+      <th>Current Buy Price</th>
       </tr>
       {itemList}
       </thead>
