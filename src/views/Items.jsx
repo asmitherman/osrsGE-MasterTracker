@@ -407,14 +407,18 @@ class ItemsView extends React.Component {
     })
           // <td >{item.current.trend}</td>
           // <td className="text-center text-success" >{item['day30'].change}</td>
-
+    let itemLen = 10;
     let itemList = this.state.data.map(function(item) {
-        return (
-          <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
-          <td>{item.name}</td>
-          <td>{item.buy_average}</td>
-          </tr>
-        )
+        if(itemLen) {
+          itemLen--;
+          return (
+            <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
+            <td>{item.name}</td>
+            <td>{item.buy_average}</td>
+            </tr>
+          )
+        }
+
       // if(item['day30'].change.charAt(0) == '+' ) {
       //   return (
       //     <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>

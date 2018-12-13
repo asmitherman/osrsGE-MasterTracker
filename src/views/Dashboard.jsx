@@ -11,6 +11,8 @@ import React from "react";
 // import Items from '../data/items';
 
 // reactstrap components
+import AllItems from '../data/allitems';
+
 import {
   Button,
   ButtonGroup,
@@ -33,17 +35,6 @@ import {
   UncontrolledTooltip
 } from "reactstrap";
 
-// core components
-// import {
-//   chartExample1,
-//   chartExample2,
-//   chartExample3,
-//   chartExample4
-// } from "variables/charts.jsx";
-
-
-// const items = require('../data/items.js');
-// const { grandExchange } = require('osrs-api');
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -58,7 +49,26 @@ class Dashboard extends React.Component {
   }
 
 
+
+
   render() {
+
+
+    // console.log(sorted)
+    let topTenTraded = [];
+    Object.keys(AllItems[0]).forEach(function(key,index) {
+      topTenTraded.push(AllItems[0][key]);
+    });
+    let sorted = topTenTraded.sort(function(a, b){return b.overall_quantity - a.overall_quantity})
+    let itemLen = 10;
+    let topTen = sorted.map(function(item) {
+        if(itemLen) {
+          itemLen--;
+          return (
+            <ListGroupItem> {item.name} <div className="float-right">{item.overall_quantity}</div></ListGroupItem>
+          )
+        }
+      }, this);
 
 
 
@@ -92,9 +102,24 @@ class Dashboard extends React.Component {
       </Card>
       </Col>
       <Col lg="3" md="12">
-      <Card >
+      <Card className="border border-info">
       <CardBody>
-        Top 10 Traded
+      <div className="dashTitle">
+        <i className="fas fa-exchange-alt"></i>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <b>Top 10 Traded</b>
+
+        </div>
+
+      </CardBody>
+      </Card>
+      <Card className="border border-info">
+      <CardBody>
+      <ListGroup>
+      {topTen}
+      </ListGroup>
       </CardBody>
       </Card>
       </Col>

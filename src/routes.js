@@ -1,5 +1,6 @@
 import Dashboard from "views/Dashboard.jsx";
-import ItemsView from "views/Items.jsx"
+import ItemsView from "views/Items.jsx";
+import ItemDetail from "views/Item.jsx";
 // import Icons from "views/Icons.jsx";
 // import Map from "views/Map.jsx";
 // import Notifications from "views/Notifications.jsx";
@@ -14,15 +15,25 @@ var routes = [
     name: "Dashboard",
     icon: "tim-icons icon-chart-pie-36",
     component: Dashboard,
-    layout: "/admin"
+    layout: "/admin",
+    hidden: "false"
   },
   {
     path: "/items",
     name: "Items Search",
     icon: "tim-icons icon-zoom-split",
     component: ItemsView,
-    layout: "/admin"
+    layout: "/admin",
+    hidden: "false"
   },
+  // {
+  //   path: "/item/:itemid",
+  //   name: "Item Detail Page",
+  //   icon: "tim-icons icon-tag",
+  //   component: ItemDetail,
+  //   layout: "/admin",
+  //   hidden: "true"
+  // },
 
   // {
   //   path: "/icons",

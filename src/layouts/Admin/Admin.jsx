@@ -10,6 +10,7 @@ import Sidebar from "components/Sidebar/Sidebar.jsx";
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
 
 import routes from "routes.js";
+import otherRoutes from "otherRoutes.js";
 
 import logo from "assets/img/react-logo.png";
 
@@ -23,6 +24,7 @@ class Admin extends React.Component {
       sidebarOpened:
         document.documentElement.className.indexOf("nav-open") !== -1
     };
+    // console.log(props)
   }
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
@@ -75,6 +77,8 @@ class Admin extends React.Component {
       }
     });
   };
+
+
   handleBgClick = color => {
     this.setState({ backgroundColor: color });
   };
@@ -85,7 +89,7 @@ class Admin extends React.Component {
           routes[i].layout + routes[i].path
         ) !== -1
       ) {
-        return routes[i].name;
+          return routes[i].name;
       }
     }
     return "Brand";
@@ -116,7 +120,11 @@ class Admin extends React.Component {
               toggleSidebar={this.toggleSidebar}
               sidebarOpened={this.state.sidebarOpened}
             />
-            <Switch>{this.getRoutes(routes)}</Switch>
+            <Switch>
+            {this.getRoutes(routes)}
+            {this.getRoutes(otherRoutes)}
+            </Switch>
+
             {// we don't want the Footer to be rendered on map page
             this.props.location.pathname.indexOf("maps") !== -1 ? null : (
               <Footer fluid />
