@@ -55,7 +55,6 @@ let itemArray = [];
 search.addDocuments(itemArray);
 //End search config
 
-
 const items = require('../data/items.js');
 const { grandExchange } = require('osrs-api');
 
@@ -219,7 +218,7 @@ class ItemsView extends React.Component {
       <Col lg="6" md="12">
       <Card>
       <CardHeader>
-      <CardTitle tag="h4">Item Search</CardTitle>
+      <CardTitle tag="h4"> <h2>Item Search </h2></CardTitle>
       <Form className="form">
       <Col>
       <FormGroup>
