@@ -42,39 +42,18 @@ import {
   chartExample4
 } from "variables/charts.jsx";
 
-
+//generating Search settings
 var search = new JsSearch.Search('name');
-// search.addIndex(['item', 'name']);
-// search.addIndex(['item', 'id']);
 search.addIndex('name');
 search.addIndex('id');
+//index search keys
 let itemArray = [];
-// for(let i = 0; i < AllItems[0].length; i++)
-// {
-//   // console.log(AllItems[i])
-//   // search.addDocuments(AllItems[i].item);
-//   itemArray.push(AllItems[0][i]);
-// }
-
     Object.keys(AllItems[0]).forEach(function(key,index) {
   itemArray.push(AllItems[0][key]);
-  // console.log(key + ' ' + AllItems[0][key].name)
-  // console.log(key + ' ' + index)
-  // let day = new Date(key*1000);
-  // let standardDate = Moment(day/1000)
-  // days.push(standardDate.format('l'))
-  // values.push(graph[key])
 });
 
 search.addDocuments(itemArray);
-
-// console.log("searching for yew" );    // [theGreatGatsby, theDaVinciCode]
-// console.log(search.search(1515))
-// console.log(search.search("yew"))
-// console.log(itemArray)
-// search.search('scott');  // [theGreatGatsby]
-// search.search('dan');    // [angelsAndDemons, theDaVinciCode]
-// search.search('mystery') // [angelsAndDemons, theDaVinciCode]
+//End search config
 
 
 const items = require('../data/items.js');
@@ -94,216 +73,22 @@ class ItemsView extends React.Component {
 
 
   }
-  setBgChartDataName(name,itemName) {
-    // console.log('this worked')
-    let values = [];
-    let days = [];
-    let newDays = [];
-    let newValues = [];
-    let graph = this.state.priceChartData;
-    Object.keys(graph).forEach(function(key,index) {
-      let day = new Date(key*1000);
-      let standardDate = Moment(day/1000)
-      days.push(standardDate.format('l'))
-      values.push(graph[key])
-    });
-    if(name === 'data1') {
-      for( let i = 30; i > 0 ; i--)
-      {
-        newDays.push(days[days.length - i])
-      }
-      for( let i = 30; i > 0 ; i--)
-      {
-        newValues.push(values[values.length - i])
-      }
-    } else if (name === 'data2') {
-      for( let i = 90; i > 0 ; i--)
-      {
-        newDays.push(days[days.length - i])
-      }
-      for( let i = 90; i > 0 ; i--)
-      {
-        newValues.push(values[values.length - i])
-      }
-    } else if ( name === 'data3') {
-      for( let i = 180; i > 0 ; i--)
-      {
-        newDays.push(days[days.length - i])
-      }
-      for( let i = 180; i > 0 ; i--)
-      {
-        newValues.push(values[values.length - i])
-      }
-    }
-
-    this.setState({
-      bigChartData:{
-        labels: newDays,
-        datasets:[
-          {
-            label:'Long Term Prices',
-            data: newValues,
-            fill: true,
-            borderColor: "#1f8ef1",
-            borderWidth: 2,
-            borderDash: [],
-            borderDashOffset: 0.0,
-            pointBackgroundColor: "#1f8ef1",
-            pointBorderColor: "rgba(255,255,255,0)",
-            pointHoverBackgroundColor: "#1f8ef1",
-            pointBorderWidth: 20,
-            pointHoverRadius: 4,
-            pointHoverBorderWidth: 15,
-            pointRadius: 3,
-
-          }
-        ]
-
-      }
-
-    });
-
-    ReactDom.render (
-      <Card className="card-chart">
-      <CardHeader>
-      <Row>
-      <Col className="text-left" sm="6">
-      <h5 className="card-category"> {itemName + " Long Term Price"}</h5>
-      <CardTitle tag="h2">Daily Average</CardTitle>
-      </Col>
-      <Col sm="6">
-
-
-      <ButtonGroup
-      className="btn-group-toggle float-right"
-      data-toggle="buttons"
-      >
-      <Button
-      tag="label"
-      className={classNames("btn-simple", {
-        active: this.state.bigChartData === "data1"
-      })}
-      color="info"
-      id="0"
-      size="sm"
-      onClick={() => this.setBgChartDataName("data1")}
-      >
-      <input
-      defaultChecked
-      className="d-none"
-      name="options"
-      type="radio"
-      />
-      <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-      1 Month
-      </span>
-      <span className="d-block d-sm-none">
-      <i className="tim-icons icon-single-02" />
-      </span>
-      </Button>
-      <Button
-      color="info"
-      id="1"
-      size="sm"
-      tag="label"
-      className={classNames("btn-simple", {
-        active: this.state.bigChartData === "data2"
-      })}
-      onClick={() => this.setBgChartDataName("data2")}
-      >
-      <input
-      className="d-none"
-      name="options"
-      type="radio"
-      />
-      <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-      3 Months
-      </span>
-      <span className="d-block d-sm-none">
-      <i className="tim-icons icon-gift-2" />
-      </span>
-      </Button>
-      <Button
-      color="info"
-      id="2"
-      size="sm"
-      tag="label"
-      className={classNames("btn-simple", {
-        active: this.state.bigChartData === "data3"
-      })}
-      onClick={() => this.setBgChartDataName("data3")}
-      >
-      <input
-      className="d-none"
-      name="options"
-      type="radio"
-      />
-      <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-      6 Months
-      </span>
-      <span className="d-block d-sm-none">
-      <i className="tim-icons icon-tap-02" />
-      </span>
-      </Button>
-      </ButtonGroup>
-      </Col>
-      </Row>
-      </CardHeader>
-      <CardBody>
-      <div className="chart-area">
-      <Line
-      data={this.state.bigChartData}
-      options={chartExample1.options}
-      />
-      </div>
-      </CardBody>
-      </Card>
-
-
-      , document.getElementById('bigChartArea'));
-
-  };
 
   componentDidMount() {
     this.mounted = true;
-    // var item = [];
-    // var logs = [1511,1513,1515,1517,1519,1521];
-  //   grandExchange.getItem(1515).then((response) => {
-  //     let data = [];
-  //     for (item in response) {
-  //       data.push(response[item]);
-  //     }
-  //     this.setState({ data });
-  //   });
-  //
-  //
-  //   // this.getDailyChartData();
   }
 
+//actively refresh search from search bar
   refineSearch() {
     let name = document.getElementById('item').value;
     this.setState({data:search.search(name)});
-    // console.log(search.search(name))
   }
 
+//Week daily chart setup, not used currently, looking to port to item.jsx
   generateCharts(itemId,itemName,itemCurPrice){
-    // console.log("Generating Chart for item " + itemId);
-    // let itemInfo = {};
-    // for(let i = 0; i < AllItems.length; i++)
-    // {
-    //   if(AllItems[i].item.id === itemId) {
-    //     itemInfo = AllItems[i].item
-    //   }
-    // }
-    // console.log(itemInfo)
-    // let itemInfo = [];
-    // itemInfo = search.search(itemName.toString());
-    // console.log(itemName)
-    // console.log(search.search('Yew logs'))
     this.getDailyChartData(itemId, itemName, itemCurPrice)
-    // console.log(this.state.dailyChartData)
   }
-
+//the meat of daily chart setup
   getDailyChartData(itemId, itemName, itemCurPrice){
     let dailyValues = [];
     let days = [];
@@ -328,7 +113,6 @@ class ItemsView extends React.Component {
       {
         pastWeek.push(days[days.length - i])
       }
-      // console.log(pastWeek)
       let pastWeekValues = [];
       for( let i = 7; i > 0 ; i--)
       {
@@ -378,39 +162,22 @@ class ItemsView extends React.Component {
         </Card>
 
         , document.getElementById('chartArea'));
-
-
-
     this.setBgChartDataName('data1',itemName);
 
-      // console.log(Object.keys(graph[0]))
     });
     this.setState({bigChartDataName: "data1"});
-
-    // Ajax calls here
-    // React.render(<TableData data = {Items} />, document.getElementById("search"));
-
   }
+  //End weekly daily chart price setup
 
+  //creates link to item detail page using itemid in props
   routeToItemPage(itemid) {
     this.props.history.push('/admin/item/' + itemid)
   }
-  // <li className="item" key={item.id}>{item.name}: {item.current.price}</li>;
+  //end link to item detail Item Detail View
+
+
+  //major logic for render page
   render() {
-
-    let itemBigChart = this.state.data.map(function(item) {
-      return (
-        <Col className="text-left" sm="6">
-        <h5 className="card-category"> {item.name + " Long Term Price"}</h5>
-        <CardTitle tag="h2">Daily Average</CardTitle>
-        </Col>
-
-      )
-
-    })
-            // <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.buy_average)}>
-          // <td >{item.current.trend}</td>
-          // <td className="text-center text-success" >{item['day30'].change}</td>
     let itemLen = 10;
     let itemList = this.state.data.map(function(item) {
         if(itemLen) {
@@ -422,30 +189,6 @@ class ItemsView extends React.Component {
             </tr>
           )
         }
-
-      // if(item['day30'].change.charAt(0) == '+' ) {
-      //   return (
-      //     <tr className="text-success" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
-      //     <td>{item.name}</td>
-      //     <td>{item.current.price}</td>
-      //     <td >{item.current.trend}</td>
-      //     <td className="text-center text-success" >{item['day30'].change}</td>
-      //     </tr>
-      //   )
-      // } else {
-      //   return (
-      //     <tr className="text-warning" key={item.id} onClick={() => this.generateCharts(item.id, item.name, item.current.price)}>
-      //     <td>{item.name}</td>
-      //     <td>{item.current.price}</td>
-      //     <td >{item.current.trend}</td>
-      //     <td className="text-center text-warning" >{item['day30'].change}</td>
-      //     </tr>
-      //   )
-      //
-      // }
-
-
-
       }, this);
 
     let itemChart = this.state.data.map(function(item) {
@@ -469,10 +212,6 @@ class ItemsView extends React.Component {
 
     )
     });
-
-
-      // <th>Current Trend</th>
-      // <th className="text-center">30 Day Change</th>
 
     return (
       <div className="content">
@@ -523,22 +262,13 @@ class ItemsView extends React.Component {
       </div>
       </Col>
       </Row>
-
-
-
-
       </div>
-
     );
   }
 
   componentWillUnmount() {
     this.mounted = false;
   }
-
-
-
-
 }
 
 export default ItemsView;

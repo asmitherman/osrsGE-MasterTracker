@@ -41,20 +41,14 @@ class Dashboard extends React.Component {
     super(props);
     this.state = {
     }
-
   }
 
   componentDidMount() {
     this.mounted = true;
   }
 
-
-
-
+  //major logic for rendering page
   render() {
-
-
-    // console.log(sorted)
     let topTenTraded = [];
     Object.keys(AllItems[0]).forEach(function(key,index) {
       topTenTraded.push(AllItems[0][key]);
@@ -168,9 +162,6 @@ class Dashboard extends React.Component {
   componentWillUnmount() {
     this.mounted = false;
   }
-
-
-
 
 }
 

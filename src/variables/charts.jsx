@@ -28,12 +28,12 @@ let chart1_2_options = {
           color: "rgba(29,140,248,0.0)",
           zeroLineColor: "transparent"
         },
-        ticks: {
-          suggestedMin: 60,
-          suggestedMax: 125,
-          padding: 20,
-          fontColor: "#9a9a9a"
-        }
+        // ticks: {
+        //   suggestedMin: 60,
+        //   suggestedMax: 60,
+        //   padding: 20,
+        //   fontColor: "#9a9a9a"
+        // }
       }
     ],
     xAxes: [
